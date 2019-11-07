@@ -97,6 +97,17 @@ def main(args):
     print('WRR: {:10.3%} ({:10d} / {:10d})'.format(wrr, match_count, ref_token_count))
     print('SER: {:10.3%} ({:10d} / {:10d})'.format(ser, sent_error_count, counter))
 
+    # write to txt file
+    string = 'WER: {:10.3%} ({:10d} / {:10d})'.format(wer, error_count, ref_token_count) + '\r\n' + \
+             'WRR: {:10.3%} ({:10d} / {:10d})'.format(wrr, match_count, ref_token_count) + '\r\n' + \
+             'SER: {:10.3%} ({:10d} / {:10d})'.format(ser, sent_error_count, counter)
+    f = open("asr_evaluation_tmp.txt", "a", encoding='utf=8')
+    f.seek(0)
+    f.truncate()
+    f.write(string)
+    f.flush()
+    f.close()
+
 
 def process_line_pair(ref_line, hyp_line, case_insensitive=False, remove_empty_refs=False):
     """Given a pair of strings corresponding to a reference and hypothesis,
